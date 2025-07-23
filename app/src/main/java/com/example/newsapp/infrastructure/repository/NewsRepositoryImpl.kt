@@ -1,8 +1,12 @@
 package com.example.newsapp.infrastructure.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.newsapp.domain.model.News
 import com.example.newsapp.domain.repository.NewsRepository
 import com.example.newsapp.infrastructure.mapper.NewsMapper.toDomain
+import com.example.newsapp.infrastructure.network.paging.NewsPagingSource
 import com.example.newsapp.infrastructure.network.response.ErrorResponse
 import com.example.newsapp.infrastructure.network.service.NewsApiService
 import com.example.newsapp.utils.state.DataState
@@ -15,17 +19,9 @@ class NewsRepositoryImpl(
     private val apiService: NewsApiService,
 ) : NewsRepository {
 
-    override suspend fun getNews(
-        query: String?,
-        page: Int?,
-        pageSize: Int?
-    ): Flow<DataState<List<News>>> = flow {
+    override fun getNews(): Flow<DataState<List<News>>> = flow {
         try {
-            val response = apiService.getNews(
-                query = query,
-                page = page,
-                pageSize = pageSize
-            )
+            val response = apiService.getNews()
 
             val newsList = response.articles?.map { it.toDomain() }.orEmpty()
             emit(DataState.Success(newsList))
@@ -45,5 +41,17 @@ class NewsRepositoryImpl(
         } catch (e: Exception) {
             emit(DataState.Error(e))
         }
+    }
+
+    override fun searchNews(query: String): Flow<PagingData<News>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = true,
+                prefetchDistance = 2 * 20,
+                initialLoadSize = 1 * 20,
+            ),
+            pagingSourceFactory = { NewsPagingSource(apiService, query) }
+        ).flow
     }
 }

@@ -6,7 +6,7 @@ import com.example.newsapp.infrastructure.network.response.NewsResponse
 object NewsMapper {
     fun NewsResponse.ArticleDto.toDomain(): News {
         return News(
-            id = title.orEmpty().hashCode(),
+            id = (title.orEmpty() + author.orEmpty() + url.orEmpty()).hashCode(),
             title = title.orEmpty(),
             author = author.orEmpty(),
             publishedAt = publishedAt.orEmpty(),
