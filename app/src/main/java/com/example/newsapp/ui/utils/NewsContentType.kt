@@ -1,6 +1,6 @@
 package com.example.newsapp.ui.utils
 
-import com.example.newsapp.domain.News
+import com.example.newsapp.domain.model.News
 
 sealed class NewsContentType {
     data class Row(val news: News) : NewsContentType()

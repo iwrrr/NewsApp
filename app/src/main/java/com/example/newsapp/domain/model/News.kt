@@ -1,4 +1,4 @@
-package com.example.newsapp.domain
+package com.example.newsapp.domain.model
 
 data class News(
     val id: Int,
