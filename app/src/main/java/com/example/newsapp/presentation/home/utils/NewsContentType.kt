@@ -1,4 +1,4 @@
-package com.example.newsapp.ui.utils
+package com.example.newsapp.presentation.home.utils
 
 import com.example.newsapp.domain.model.News
 

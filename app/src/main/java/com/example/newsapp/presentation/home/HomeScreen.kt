@@ -23,8 +23,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import com.example.newsapp.ui.components.NewsItem
-import com.example.newsapp.ui.utils.NewsContentType
-import com.example.newsapp.ui.utils.generateDummyGridItems
+import com.example.newsapp.presentation.home.utils.NewsContentType
+import com.example.newsapp.presentation.home.utils.generateDummyGridItems
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
