@@ -9,11 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImagePainter
 import coil3.compose.rememberAsyncImagePainter
+import com.valentinilk.shimmer.shimmer
 
 @Composable
 fun NetworkImage(
@@ -29,11 +31,10 @@ fun NetworkImage(
         is AsyncImagePainter.State.Empty,
         is AsyncImagePainter.State.Loading -> {
             Box(
-                modifier = modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
+                modifier = modifier
+                    .shimmer()
+                    .clipToBounds(),
+            )
         }
 
         is AsyncImagePainter.State.Success -> {

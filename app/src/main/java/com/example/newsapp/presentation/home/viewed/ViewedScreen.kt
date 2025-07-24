@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.newsapp.domain.model.News
 import com.example.newsapp.ui.components.RowNewsItem
+import com.example.newsapp.ui.components.RowNewsItemShimmer
 import com.example.newsapp.ui.components.SwipeToDeleteContainer
 import org.koin.androidx.compose.koinViewModel
 
@@ -58,11 +59,20 @@ fun ViewedScreen(
         }
 
         ViewedState.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+            val items = remember {
+                (1..10).toList()
+            }
+
+            LazyColumn(
+                modifier = modifier,
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                contentPadding = PaddingValues(16.dp)
             ) {
-                CircularProgressIndicator()
+                items(
+                    items = items,
+                ) {
+                    RowNewsItemShimmer()
+                }
             }
         }
 

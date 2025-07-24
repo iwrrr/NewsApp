@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -42,6 +43,7 @@ import androidx.paging.compose.itemKey
 import com.example.newsapp.domain.model.News
 import com.example.newsapp.ui.components.CollapsedAppBar
 import com.example.newsapp.ui.components.RowNewsItem
+import com.example.newsapp.ui.components.RowNewsItemShimmer
 import com.example.newsapp.ui.components.SearchBar
 import com.example.newsapp.utils.formatIsoDate
 import org.koin.androidx.compose.koinViewModel
@@ -114,11 +116,23 @@ fun SearchScreen(
             }
 
             newsList.loadState.refresh is LoadState.Loading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                val items = remember {
+                    (1..10).toList()
+                }
+
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .fillMaxWidth()
+                        .nestedScroll(scrollBehavior.nestedScrollConnection),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(16.dp)
                 ) {
-                    CircularProgressIndicator()
+                    items(
+                        items = items,
+                    ) {
+                        RowNewsItemShimmer()
+                    }
                 }
             }
 
@@ -168,12 +182,7 @@ fun SearchScreen(
                     when (newsList.loadState.append) {
                         is LoadState.Loading -> {
                             item {
-                                Box(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    CircularProgressIndicator()
-                                }
+                                RowNewsItemShimmer()
                             }
                         }
 

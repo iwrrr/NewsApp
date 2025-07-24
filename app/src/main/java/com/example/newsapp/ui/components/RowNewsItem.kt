@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.newsapp.domain.model.News
 import com.example.newsapp.utils.formatIsoDate
+import com.valentinilk.shimmer.shimmer
 
 @Composable
 fun RowNewsItem(
@@ -77,6 +79,94 @@ fun RowNewsItem(
                     style = MaterialTheme.typography.bodySmall
                 )
             }
+        }
+    }
+}
+
+@Composable
+fun RowNewsItemShimmer() {
+    Row(
+        modifier = Modifier
+            .shimmer()
+            .background(MaterialTheme.colorScheme.background)
+            .height(IntrinsicSize.Min),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(120.dp)
+                .background(color = Color.LightGray, shape = MaterialTheme.shapes.medium),
+        )
+        Column(
+            modifier = Modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(12.dp)
+                    .background(color = Color.LightGray, shape = MaterialTheme.shapes.medium),
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(14.dp)
+                    .background(color = Color.LightGray, shape = MaterialTheme.shapes.medium),
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(13.dp)
+                    .background(color = Color.LightGray, shape = MaterialTheme.shapes.medium),
+            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(13.dp)
+                        .background(color = Color.LightGray, shape = MaterialTheme.shapes.medium),
+                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(13.dp)
+                        .background(color = Color.LightGray, shape = MaterialTheme.shapes.medium),
+                )
+            }
+//            Text(
+//                text = news.source,
+//                maxLines = 1,
+//                overflow = TextOverflow.Ellipsis,
+//                style = MaterialTheme.typography.labelMedium
+//            )
+//            Text(
+//                text = news.title,
+//                maxLines = 1,
+//                overflow = TextOverflow.Ellipsis
+//            )
+//            Text(
+//                text = news.description,
+//                maxLines = 2,
+//                overflow = TextOverflow.Ellipsis,
+//                style = MaterialTheme.typography.bodySmall
+//            )
+//            Row(
+//                horizontalArrangement = Arrangement.spacedBy(16.dp)
+//            ) {
+//                Text(
+//                    modifier = Modifier.weight(1f),
+//                    text = news.author,
+//                    style = MaterialTheme.typography.bodySmall,
+//                    maxLines = 1,
+//                    overflow = TextOverflow.Ellipsis,
+//                )
+//                Text(
+//                    text = formatIsoDate(news.publishedAt),
+//                    style = MaterialTheme.typography.bodySmall
+//                )
+//            }
         }
     }
 }
