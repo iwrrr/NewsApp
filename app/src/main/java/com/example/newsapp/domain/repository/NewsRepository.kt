@@ -11,4 +11,10 @@ interface NewsRepository {
     fun searchNews(
         query: String,
     ): Flow<PagingData<News>>
+
+    suspend fun saveNews(news: News): DataState<Unit>
+
+    suspend fun deleteNews(news: News): DataState<Unit>
+
+    fun getViewedNews(): Flow<DataState<List<News>>>
 }
