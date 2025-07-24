@@ -8,6 +8,7 @@ val repositoryModules = module {
     single<NewsRepository> {
         NewsRepositoryImpl(
             apiService = get(),
+            newsDao = get()
         )
     }
 }
