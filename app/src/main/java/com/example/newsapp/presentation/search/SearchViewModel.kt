@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.example.newsapp.domain.model.News
 import com.example.newsapp.domain.repository.NewsRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class SearchViewModel(
     private val repository: NewsRepository
@@ -39,7 +41,9 @@ class SearchViewModel(
         _searchQuery.update { query }
     }
 
-    fun clearSearch() {
-        _searchQuery.update { "" }
+    fun saveNews(news: News) {
+        viewModelScope.launch {
+            repository.saveNews(news)
+        }
     }
 }
